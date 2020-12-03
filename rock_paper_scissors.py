@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Dec  2 09:14:59 2020
-
-@author: aronj23
-"""
 
 import random
 import os
@@ -63,7 +58,7 @@ def rps():
         print("--------------------------------------")
         print("Enter \"help\" for instructions")
         print("Enter \"Rock\" (\"r\"),\"Paper\" (\"p\") or \"Scissors\" (\"s\") to play")
-        print("Enter \"exit\" to quit")
+        print("Enter \"quit\" or \"q\" to quit")
         print("--------------------------------------")
         if PlayScore < 5 and CompScore < 5:
             print("Round: " + str(Rounds))
@@ -73,18 +68,18 @@ def rps():
         # Player Input
         inp = input("Enter your move : ")
  
-        if inp.lower() == "help":
+        if inp.lower() == "help" or "h":
             clear()
             rps_instructions()
             continue
-        elif inp.lower() == "exit":
+        elif inp.lower() == "exit" or "quit" or "q":
             clear()
             break  
-        elif inp.lower() == "rock" or inp.lower() == "r":
+        elif inp.lower() == "rock" or "r":
             player_move = 0
-        elif inp.lower() == "paper" or inp.lower() == "p":
+        elif inp.lower() == "paper" or "p":
             player_move = 1    
-        elif inp.lower() == "scissors" or inp.lower() == "s":
+        elif inp.lower() == "scissors" or "s":
             player_move = 2
         else:
             clear()
@@ -139,7 +134,7 @@ def rps():
             Rounds = Rounds + 1
  
 def rpsls():
-     
+    global Rounds
     global rpsls_table
     global game_map
     global name
@@ -151,9 +146,9 @@ def rpsls():
         print("--------------------------------------")
         print("\t\tMenu")
         print("--------------------------------------")
-        print("Enter \"help\" for instructions")
+        print("Enter \"help\" or \"h\" for instructions")
         print("Enter \"Rock\" (\"r\"),\"Paper\" (\"p\"),\"Scissors\" (\"s\"),\"Lizard\" (\"l\"), or \"Spock\" (\"sp\") to play")
-        print("Enter \"exit\" to quit")
+        print("Enter quit or \"q\" to quit")
         print("--------------------------------------")
         if PlayScore < 5 and CompScore < 5:
             print("Round: " + str(Rounds))
@@ -163,22 +158,22 @@ def rpsls():
         # Player Input
         inp = input("Enter your move : ")
  
-        if inp.lower() == "help":
+        if inp.lower() == "help" or "h":
             clear()
             rpsls_instructions()
             continue
-        elif inp.lower() == "exit":
+        elif inp.lower() == "exit" or "quit" or "q":
             clear()
             break  
-        elif inp.lower() == "rock" or inp.lower() == "r":
+        elif inp.lower() == "rock" or "r":
             player_move = 0
-        elif inp.lower() == "paper" or inp.lower() == "p":
+        elif inp.lower() == "paper" or "p":
             player_move = 1    
-        elif inp.lower() == "scissors" or inp.lower() == "s":
+        elif inp.lower() == "scissors" or "s":
             player_move = 2
-        elif inp.lower() == "lizard" or inp.lower() == "l":
+        elif inp.lower() == "lizard" or "l":
             player_move = 3
-        elif inp.lower() == "spock": or inp.lower() == "sp"
+        elif inp.lower() == "spock" or "sp":
             player_move = 4
         else:
             clear()
@@ -200,22 +195,24 @@ def rpsls():
         if winner == player_move:
             print(name, "wins this round!")
             PlayScore = PlayScore + 1
-            print("Score is:" + str(PlayScore) + "|" + str(CompScore))
-            if PlayScore > 4:
-                print(name, "Wins the game!")
-                sys.exit()
+            
         elif winner == comp_move:
             print("COMPUTER wins this round!")
             CompScore = CompScore + 1
-            print("Score is:" + str(PlayScore) + "|" + str(CompScore))
-            if CompScore > 4:
-                print("Computer wins the game, better luck next time!")
-                sys.exit()  
+            
         else:
             print("TIE round!")      
         print()
         time.sleep(2)
-        #clear()
+        clear()
+        if CompScore > 4:
+                print("Computer wins the game, better luck next time!")
+                sys.exit()
+        elif PlayScore > 4:
+            print(name, "Wins the game!")
+            sys.exit()
+        elif PlayScore < 5 and CompScore < 5:
+            Rounds = Rounds + 1
  
 # The main function
 if __name__ == '__main__':
@@ -225,11 +222,7 @@ if __name__ == '__main__':
  
     # Win-lose matrix for traditional game
     rps_table = [[-1, 1, 0], [1, -1, 2], [0, 2, -1]]
-    
-
-    
-    # This creates a "table", where -1 means a draw, 1 means that that the 
- 
+     
     # Win-lose matrix for new version of the game
     rpsls_table = [[-1, 1, 0, 0, 4],[1, -1, 2, 3, 1], [0, 2, -1, 2, 4], [0, 3, 2, -1, 3], [4, 1, 4, 3, -1]]
  
@@ -243,34 +236,28 @@ if __name__ == '__main__':
         print()
         print("Let's Play!!!")
         print("Which version of Rock-Paper-Scissors?")
-        print("Enter 1 to play Rock-Paper-Scissors")
-        print("Enter 2 to play Rock-Paper-Scissors-Lizard-Spock")
-        print("Enter 3 to quit")
+        print("Enter 1 or \"rps\" to play Rock-Paper-Scissors")
+        print("Enter 2 or \"rpsls\" to play Rock-Paper-Scissors-Lizard-Spock")
+        print("Enter 3 or \"q\" to quit")
         print()
  
-        # Try block to handle the player choice 
-        try:
-            choice = int(input("Enter your choice = "))
-        except ValueError:
-            clear()
-            print("Wrong Choice")   
-            continue
+
+        choice = str(input("Enter your choice = "))
+
  
         # Play the traditional version of the game
-        if choice == 1:
+        if choice.lower == "1" or "rps":
             rps()
  
         # Play the new version of the game
-        elif choice == 2:
+        elif choice.lower == "2" or "rpsls":
             rpsls()
  
         # Quit the GAME LOOP    
-        elif choice == 3:
+        elif choice.lower == "3" or "q" or "quit":
             break
  
         # Other wrong input
         else:
             clear()
-            print("Wrong choice. Read instructions carefully.")
- 
-                            
+            print("Wrong choice. Please read instructions carefully.")
