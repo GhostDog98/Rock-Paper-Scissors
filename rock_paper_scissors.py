@@ -152,10 +152,12 @@ def rpsls():
         print("\t\tMenu")
         print("--------------------------------------")
         print("Enter \"help\" for instructions")
-        print("Enter \"Rock\",\"Paper\",\"Scissors\",\"Lizard\",\"Spock\" to play")
+        print("Enter \"Rock\" (\"r\"),\"Paper\" (\"p\"),\"Scissors\" (\"s\"),\"Lizard\" (\"l\"), or \"Spock\" (\"sp\") to play")
         print("Enter \"exit\" to quit")
         print("--------------------------------------")
-         
+        if PlayScore < 5 and CompScore < 5:
+            print("Round: " + str(Rounds))
+        print("Score is: " + str(PlayScore) + "|" + str(CompScore))
         print()
  
         # Player Input
@@ -168,15 +170,15 @@ def rpsls():
         elif inp.lower() == "exit":
             clear()
             break  
-        elif inp.lower() == "rock":
+        elif inp.lower() == "rock" or inp.lower() == "r":
             player_move = 0
-        elif inp.lower() == "paper":
+        elif inp.lower() == "paper" or inp.lower() == "p":
             player_move = 1    
-        elif inp.lower() == "scissors":
+        elif inp.lower() == "scissors" or inp.lower() == "s":
             player_move = 2
-        elif inp.lower() == "lizard":
+        elif inp.lower() == "lizard" or inp.lower() == "l":
             player_move = 3
-        elif inp.lower() == "spock":
+        elif inp.lower() == "spock": or inp.lower() == "sp"
             player_move = 4
         else:
             clear()
