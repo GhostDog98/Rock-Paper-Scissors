@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec  2 09:14:59 2020
+
+@author: aronj23
+"""
+
 import random
 import os
 import time
@@ -5,6 +13,7 @@ import sys
 
 PlayScore = 0
 CompScore = 0
+Rounds = 1
  
 def clear():
     os.system("clear")
@@ -39,7 +48,7 @@ def rpsls_instructions():
     print()
  
 def rps():
-     
+    global Rounds
     global rps_table
     global game_map
     global name
@@ -53,10 +62,12 @@ def rps():
         print("\t\tMenu")
         print("--------------------------------------")
         print("Enter \"help\" for instructions")
-        print("Enter \"Rock\",\"Paper\",\"Scissors\" to play")
+        print("Enter \"Rock\" (\"r\"),\"Paper\" (\"p\") or \"Scissors\" (\"s\") to play")
         print("Enter \"exit\" to quit")
         print("--------------------------------------")
- 
+        if PlayScore < 5 and CompScore < 5:
+            print("Round: " + str(Rounds))
+        print("Score is: " + str(PlayScore) + "|" + str(CompScore))
         print()
  
         # Player Input
@@ -69,11 +80,11 @@ def rps():
         elif inp.lower() == "exit":
             clear()
             break  
-        elif inp.lower() == "rock":
+        elif inp.lower() == "rock" or inp.lower() == "r":
             player_move = 0
-        elif inp.lower() == "paper":
+        elif inp.lower() == "paper" or inp.lower() == "p":
             player_move = 1    
-        elif inp.lower() == "scissors":
+        elif inp.lower() == "scissors" or inp.lower() == "s":
             player_move = 2
         else:
             clear()
@@ -99,23 +110,33 @@ def rps():
         if winner == player_move:
             print(name, "WINS!!!")
             PlayScore = PlayScore + 1
-            print("Score is:" + str(PlayScore) + "|" + str(CompScore))
-            if PlayScore > 4:
-                print(name, "Wins the game!")
-                sys.exit()
+            #print("Score is:" + str(PlayScore) + "|" + str(CompScore))
+            #if PlayScore > 4:
+             #   print(name, "Wins the game!")
+              #  sys.exit()
         elif winner == comp_move:
             print("COMPUTER WINS!!!")
             CompScore = CompScore + 1
-            print("Score is:" + str(PlayScore) + "|" + str(CompScore))
-            if CompScore > 4:
-                print("Computer wins the game, better luck next time!")
-                sys.exit()
+            #print("Score is:" + str(PlayScore) + "|" + str(CompScore))
+            #if CompScore > 4:
+             #   print("Computer wins the game, better luck next time!")
+              #  sys.exit()
+             
         else:
             print("TIE GAME")
  
         print()
         time.sleep(2)
-        #clear()
+        clear()
+        #print("Score is: " + str(PlayScore) + "|" + str(CompScore))
+        if CompScore > 4:
+                print("Computer wins the game, better luck next time!")
+                sys.exit()
+        elif PlayScore > 4:
+            print(name, "Wins the game!")
+            sys.exit()
+        elif PlayScore < 5 and CompScore < 5:
+            Rounds = Rounds + 1
  
 def rpsls():
      
